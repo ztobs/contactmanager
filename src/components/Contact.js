@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Context } from "../Context";
 
 class Contact extends Component {
+  static contextType = Context;
   state = {
     showContactInfo: false
   };
 
-  onDeleteClick = () => {
-    this.props.deleteClickHandler();
+  onDeleteClick = id => {
+    this.context.dispatch({ type: "DELETE_CONTACT", payload: id });
   };
 
   render() {
-    const { name, email, phone } = this.props.contact;
+    const { id, name, email, phone } = this.props.contact;
     const { showContactInfo } = this.state;
     return (
       <div className="card card-body mb-3">
@@ -29,7 +31,7 @@ class Contact extends Component {
           <FontAwesomeIcon
             icon={faTimes}
             style={{ cursor: "pointer", float: "right", color: "red" }}
-            onClick={this.onDeleteClick}
+            onClick={this.onDeleteClick.bind(this, id)}
           />
         </h4>
         {showContactInfo ? (
@@ -44,8 +46,7 @@ class Contact extends Component {
 }
 
 Contact.propTypes = {
-  contact: PropTypes.object.isRequired,
-  deleteClickHandler: PropTypes.func.isRequired
+  contact: PropTypes.object.isRequired
 };
 
 export default Contact;
