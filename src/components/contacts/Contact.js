@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSortDown, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Context } from "../Context";
+import {
+  faSortDown,
+  faTimes,
+  faPencilAlt
+} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+import { Context } from "../../Context";
 
 class Contact extends Component {
   static contextType = Context;
@@ -10,7 +17,10 @@ class Contact extends Component {
     showContactInfo: false
   };
 
-  onDeleteClick = id => {
+  onDeleteClick = async id => {
+    await axios.delete(
+      `https://my-json-server.typicode.com/ztobs/demo/users/${id}`
+    );
     this.context.dispatch({ type: "DELETE_CONTACT", payload: id });
   };
 
@@ -33,6 +43,17 @@ class Contact extends Component {
             style={{ cursor: "pointer", float: "right", color: "red" }}
             onClick={this.onDeleteClick.bind(this, id)}
           />
+          <Link to={`contact/edit/${id}`}>
+            <FontAwesomeIcon
+              icon={faPencilAlt}
+              style={{
+                cursor: "pointer",
+                float: "right",
+                color: "black",
+                marginRight: "1rem"
+              }}
+            />
+          </Link>
         </h4>
         {showContactInfo ? (
           <ul className="list-group">
