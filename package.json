@@ -1,7 +1,8 @@
 {
   "name": "contactmanager",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://ztobs.github.io/contactmanager",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
@@ -12,6 +13,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
+    "gh-pages": "^2.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
@@ -19,6 +21,7 @@
     "uuid": "^7.0.1"
   },
   "scripts": {
+    "deploy": "npm run build&&gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
